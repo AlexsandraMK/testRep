@@ -8,7 +8,63 @@
 // user, password – логин и пароль для базовой HTTP-авторизации (если требуется).
 
 var XMLHttpRequest = require('xhr2');
-let answer = "";
+
+function Request(url, answer) {
+  //console.log(answer);
+  answer = JSON.parse(answer);
+
+  switch(url) {
+    case '/user':
+      console.log("статус = " + answer.status);
+      console.log("сообщение = " + answer.message);
+      console.log("время запроса = " + answer.time);
+      console.log("user_id = " + answer.user.userId);
+      console.log("фамилия = " + answer.user.lastName);
+      console.log("имя = " + answer.user.firstName);
+      console.log("отчество = " + answer.user.patronymic);
+      console.log("никнейм = " + answer.user.nickname);
+      console.log("пароль = " + answer.user.password);
+      console.log("почта = " + answer.user.eMail);
+      console.log("телефон = " + answer.user.phone);
+      console.log("адрес = " + answer.user.addressId);
+      break;
+
+    case '/pets_list':
+      console.log("статус = " + answer.status);
+      console.log("сообщение = " + answer.message);
+      console.log("время запроса = " + answer.time);
+      // цикл
+      let i = 0;
+      console.log("pets_id = " + answer.pets[i].petId);
+      console.log("имя питомца = " + answer.pets[i].pet_name);
+      if (answer.pets[i].pet_gender === 'm')
+        console.log("пол питомца = мужской");
+      else
+        console.log("пол питомца = женский");
+      console.log("порода = " + answer.pets[i].breed_id);
+      console.log("дата рождения питомца = " + answer.pets[i].pet_date_of_birth);
+      console.log("вес питомца = " + answer.pets[i].pet_weight);
+      console.log("фото = " + answer.pets[i].photos);
+      console.log("документы = " + answer.pets[i].documents);
+      break;
+
+    case '/autho':
+      console.log("статус = " + answer.status);
+      console.log("сообщение = " + answer.message);
+      console.log("время запроса = " + answer.time);
+      console.log("user_id = " + answer.user_id);
+      break;
+
+    case '/registr':
+      break;
+
+    default:
+      console.log("Def");
+      console.log("url = " + url);
+      //console.log(answer);
+      break;
+  }
+}
 
 function chooseRequest(method, url, json_body) {
   let xhr = new XMLHttpRequest(); // у конструктора нет аргументов
@@ -23,9 +79,7 @@ function chooseRequest(method, url, json_body) {
     } else { // если всё прошло гладко, выводим результат
       console.log(`Готово, получили ${xhr.response.length} байт`); // response -- это ответ сервера
       console.log(`Готово, получили ${xhr.response}`);
-      /*answer = xhr.response;
-      answer = JSON.parse(answer);
-      console.log(answer.user.nickname);*/
+      Request(url, xhr.response);
     }
   };
   
@@ -44,39 +98,36 @@ function chooseRequest(method, url, json_body) {
 }
 
 let json = null;
-let id = 2;
-let us_log = "ikutuzova@gmail.com"; //"Dribla.com" //"SunriseDagger"
+let id = 2; // Саша = 2, Ира = 3
+let us_log = "ikutuzova@gmail.com"; //"Dribla.com" //"ikutuzova@gmail.com"
 let us_pass = "Ira"; //"1234" //"Ira" 
 
-let m = "autho";
+let url = "/pets_list";
 
-switch(m) {
-  case 'user':
+switch(url) {
+  case '/user':
     json = JSON.stringify({
       userId : id
     });
     method = "POST";
-    url = "/user";
     break;
 
-  case 'pets_list':
+  case '/pets_list':
     json = JSON.stringify({
       user_id : id
     });
-    method = "GET";
-    url = "/pets_list";
+    method = "POST";
     break;
 
-  case 'autho':
+  case '/autho':
     json = JSON.stringify({
       login: us_log,
       password: us_pass
     });
     method = "POST";
-    url = "/autho";
     break;
 
-  case 'registr':
+  case '/registr':
     json = JSON.stringify({
       user_first_name : "Ирина",
       user_last_name : "Кутузова",
@@ -88,10 +139,17 @@ switch(m) {
       address : "" // адрес_id из другой таблицы
     });
     method = "POST";
-    url = "/registr";
    /*
    согласие обрабатывается у нас
         (отправка только true, при false кнопка отправки неактивна)*/
+    break;
+
+  case '/pet_lk':
+    json = JSON.stringify({
+      pet_id : id
+    });
+    method = "GET";
+    url = "/pet_lk";
     break;
 
   default:
@@ -105,8 +163,8 @@ switch(m) {
   case 'add_pet':
     json = JSON.stringify({
       pet_name : "", //строка
-      pet_gender : "", //bool - true (ж), false (м)
-      Порода_id : "", //число - id породы
+      pet_gender : "", //число - 0 (м), 1 (ж)
+      Порода_id : "", //число - id породы breed_id
       pet_date_of_birth : "", //date
       pet_weight : "", //число
       photo : "", //фото
@@ -116,13 +174,7 @@ switch(m) {
     url = "/add_pet";
     break;
 
-  case 'pet_lk':
-    json = JSON.stringify({
-      pet_id : id
-    });
-    method = "GET";
-    url = "/pet_lk";
-    break;
+  
 
   case 'feed':
     json = JSON.stringify({
