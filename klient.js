@@ -9,6 +9,7 @@
 
 var XMLHttpRequest = require('xhr2');
 
+// функция, расшифровывающая ответ на запрос поданного url
 function Request(url, answer) {
   //console.log(answer);
   answer = JSON.parse(answer);
@@ -33,19 +34,23 @@ function Request(url, answer) {
       console.log("статус = " + answer.status);
       console.log("сообщение = " + answer.message);
       console.log("время запроса = " + answer.time);
-      // цикл
-      let i = 0;
-      console.log("pets_id = " + answer.pets[i].petId);
-      console.log("имя питомца = " + answer.pets[i].pet_name);
-      if (answer.pets[i].pet_gender === 'm')
-        console.log("пол питомца = мужской");
-      else
-        console.log("пол питомца = женский");
-      console.log("порода = " + answer.pets[i].breed_id);
-      console.log("дата рождения питомца = " + answer.pets[i].pet_date_of_birth);
-      console.log("вес питомца = " + answer.pets[i].pet_weight);
-      console.log("фото = " + answer.pets[i].photos);
-      console.log("документы = " + answer.pets[i].documents);
+      // цикл по всем питомцам хозяина
+      console.log("Хозяин питомца : " + id);
+      console.log("Количество питомцев : " + answer.length);
+      for(let i = 0; i < answer.length; i++){
+        console.log("Питомец №" + i);
+        console.log("pets_id = " + answer.pets[i].petId);
+        console.log("имя питомца = " + answer.pets[i].pet_name);
+        if (answer.pets[i].pet_gender === 'm')
+          console.log("пол питомца = мужской");
+        else
+          console.log("пол питомца = женский");
+        console.log("порода = " + answer.pets[i].breed_id);
+        console.log("дата рождения питомца = " + answer.pets[i].pet_date_of_birth);
+        console.log("вес питомца = " + answer.pets[i].pet_weight);
+        console.log("фото = " + answer.pets[i].photos);
+        console.log("документы = " + answer.pets[i].documents);
+      }
       break;
 
     case '/autho':
@@ -66,6 +71,7 @@ function Request(url, answer) {
   }
 }
 
+// функция, отправляющая запрос на поданный url
 function chooseRequest(method, url, json_body) {
   let xhr = new XMLHttpRequest(); // у конструктора нет аргументов
   xhr.open(method, 'http://26.109.231.110:8080' + url);
@@ -104,6 +110,7 @@ let us_pass = "Ira"; //"1234" //"Ira"
 
 let url = "/pets_list";
 
+// свитч, подготавливающий данные на запрос определенного url
 switch(url) {
   case '/user':
     json = JSON.stringify({
