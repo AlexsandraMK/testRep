@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Список</title>
+    <link rel="stylesheet" href="/MobileSite/css/style.css">
+    <script src="/MobileSite/js/app.js"></script>
+    <script type="module" src="/MobileSite/js/list_pets.js"> </script>
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-search">
+            <a href="#" class="button-back"> <img src="/MobileSite/resourse/back.svg" alt="Назад" class="back"> </a>
+            <div class="region-search"> <img src="/MobileSite/resourse/search.svg" alt="" class="img-search">
+                <input type="text" class="input-search" placeholder="Поиск"> </div>
+            <button class="button-filter"> <img src="/MobileSite/resourse/filter.svg" alt="Фильтр поиска" class="filter"> </button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="title"> Выбери своего любимца </div>
+        <div class="list-pets"  id="list_pets">
+            <div class="list-item" id="plus">
+                <a href="#dark" class="button-new-pet">
+                    <div class="width-button"> <span class="plus">+</span> </div>
+                </a>
+            </div>
+        </div>
+        <div id="dark">
+            <div class="panel-pet-reg" id="pet-reg">
+                <a href="#" class="close-reg"> <img src="/MobileSite/resourse/arrow.svg" alt="Назад" class="back"> </a> <span class="pet-reg-title">РЕГИСТРАЦИЯ ПИТОМЦА</span>
+                <div class="reg-pet-form">
+                    <div class="pet-form-line">
+                        <a href="#" class="get-photo">
+                            <div class="get-photo-block"> <img src="/MobileSite/resourse/camera.svg" alt="Загрузить изображение" style="height: 50%;"> </div>
+                        </a>
+                        <div class="pet-reg-name-block">
+                            <input id="pet_name" type="text" class="pet-reg-input-name" placeholder="Имя питомца"> </div>
+                    </div>
+                    <div class="pet-form-line"> <img src="/MobileSite/resourse/birth.svg" alt="Дата рождения" class="reg-emoji">
+                        <input id="pet_date_of_birth" placeholder="Дата рождения" type="text" onfocus="this.type='date'" onblur="if(this.value==''){this.type='text'}" class="pet-reg-date pet-reg-input"> </div>
+                    <div class="pet-form-line"> <img src="/MobileSite/resourse/dog.svg" alt="Дата рождения" class="reg-emoji">
+                        <select name="hero" class="pet-reg-input">
+                            <option selected hidden>Выберите породу</option>
+                            <option value="s1">Порода 1</option>
+                            <option value="s2">Порода 2</option>
+                            <option value="s3">Порода 3</option>
+                            <option value="s3">Порода 4</option>
+                        </select>
+                    </div>
+                    <div class="pet-form-line"> <img src="/MobileSite/resourse/scales.svg" alt="Масса" class="reg-emoji">
+                        <input placeholder="Масса питомца" type="text" class="pet-reg-input"> </div>
+                    <div class="pet-form-line"> <img src="/MobileSite/resourse/gender.svg" alt="Пол питомца" class="reg-emoji">
+                        <select id="pet_gender" name="gender" class="pet-reg-input">
+                            <option selected hidden>Выберите пол</option>
+                            <option value="s1">Мужской</option>
+                            <option value="s2">Женский</option>
+                        </select>
+                    </div>
+                    <div class="pet-form-line"> <img src="/MobileSite/resourse/scales.svg" alt="Масса" class="reg-emoji">
+                        <button class="button-pet-reg-docs">
+                            <div class="pet-reg-input-docs"> <span class="plus">+</span> </div>
+                        </button>
+                        <div class="docs-flag-area">Документы не загружены</div>
+                    </div>
+                    <div class="pet-form-line">
+                        <a href="#" class="button-reg-pet">
+                            <div class="width-button" id="reg">Зарегистрировать питомца</div>
+                        </a>
+                    </div>
+                    <div class="pet-form-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+</html>
